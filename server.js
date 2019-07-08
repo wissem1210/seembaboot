@@ -5,11 +5,21 @@ const router = express.Router();
 var cors = require('cors')
 var bodyParser = require('body-parser')
 
+const mongodb = require('mongodb');
+const mongoClient= mongodb.MongoClient;
+
+var mongoose = require('mongoose');
+
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: true}))
-const userRoutes = require('./routes/user');
+mongoose.connect('mongodb://root:seemba2019@ds249137.mlab.com:49137/seembadb', function(err) {
+  if (err) { throw err; }
+});
 
+app.use(bodyParser.urlencoded({ extended: true}))
+app.use(bodyParser.json({ extended: true}))
+const userRoutes = require('./routes/userRoutes');
+const tournamentRoutes = require('./routes/tournamentRoutes');
 // app.use(cors())
 // var allowCrossDomain = function(req, res, next) {
 //     req.header('Access-Controll-Allow-Origin', '*');
@@ -25,7 +35,9 @@ const userRoutes = require('./routes/user');
 // app.use(allowCrossDomain)
 
 
+
 app.use(userRoutes);
+app.use(tournamentRoutes);
 app.listen(8000,()=>{
     console.log('listening to port 8000 ')
 })
