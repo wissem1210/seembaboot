@@ -9,9 +9,12 @@ var Tournament = require('../models/tounament');
 
 
 function getAllTournaments(req, res){
-   
+   var query = {};
+   if (req.query.game){
+       query.game=req.query.game;
+   }
     Tournament
-    .find()
+    .find(query)
     .exec(function(err,tournaments){
         if(err){
             console.log(err)
@@ -25,6 +28,24 @@ function getAllTournaments(req, res){
   
    
 }
+function getTournamentById(req, res){
+  
+     Tournament
+     .findById(req.params.tournamentId)
+     .exec(function(err,tournament){
+         if(err){
+             console.log(err)
+         } else
+ 
+     res.json(tournament);
+ 
+     });
+     
+    
+   
+    
+ }
+
 
 function addTournament(req, res){
    
@@ -32,6 +53,7 @@ function addTournament(req, res){
     console.log(req.body)
     tournament.name = req.body.name;
     tournament.maxPlayers = req.body.maxPlayers;
+    tournament.game = req.body.game;
     tournament.save((err,t) => {
         if(err)
             res.json(err)
@@ -47,4 +69,4 @@ function addTournament(req, res){
 }
 
 
-module.exports = {getAllTournaments,addTournament};
+module.exports = {getAllTournaments,addTournament,getTournamentById};

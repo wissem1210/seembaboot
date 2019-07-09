@@ -20,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true}))
 app.use(bodyParser.json({ extended: true}))
 const userRoutes = require('./routes/userRoutes');
 const tournamentRoutes = require('./routes/tournamentRoutes');
+const gameRoutes = require('./routes/gameRoutes');
 // app.use(cors())
 // var allowCrossDomain = function(req, res, next) {
 //     req.header('Access-Controll-Allow-Origin', '*');
@@ -38,6 +39,7 @@ const tournamentRoutes = require('./routes/tournamentRoutes');
 
 app.use(userRoutes);
 app.use(tournamentRoutes);
+app.use(gameRoutes);
 app.listen(8000,()=>{
     console.log('listening to port 8000 ')
 })

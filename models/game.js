@@ -5,6 +5,8 @@ const GameSchema = new Schema({
     name: { type: String, default: '' }
   });
 
-  var GAme = mongoose.model('Game', GameSchema);
+  var Game = mongoose.model('Game', GameSchema);
 
-  module.exports = GameSchema;
+  module.exports = Game;
+
+  //module.exports = mongoose.model('Game', GameSchema);
