@@ -7,8 +7,8 @@ const TournamentSchema = new Schema({
     maxTeams: {type: Number,default:2} ,
     date: { type: Date, default: Date.now },
     game: { type: Schema.ObjectId, ref: 'game' },
-    teams: [{ type: Schema.ObjectId, ref: 'team' }]
-
+    teams: [{ type: Schema.ObjectId, ref: 'Team' }]
+    
   });
 
   module.exports = mongoose.model('Tournament', TournamentSchema);

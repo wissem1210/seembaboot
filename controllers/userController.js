@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 var request = require('request');
 
+var User = require('../models/user');
+
 
 function signin(req, res){
         console.log("here........")
@@ -43,4 +45,67 @@ function authentication(req, res){
     
 }
 
-module.exports = {authentication, signin};
+
+function addUser(req, res){
+   
+    var user = new User();
+    console.log(req.body)
+    user.username = req.body.username;
+   
+    user.save((err,t) => {
+        if(err)
+            res.json(err)
+        
+        res.json(t)
+    });
+
+
+    
+    
+  
+   
+}
+
+
+function getUsers(req, res){
+    var query = req.query;
+   
+     User
+     .find(query)
+     .exec(function(err,users){
+         if(err){
+             console.log(err)
+         } else
+ 
+     res.json(users);
+ 
+     });
+     
+    
+   
+    
+ }
+
+
+ function getUserById(req, res){
+  
+    User
+    .findById(req.params.userId)
+    .exec(function(err,user){
+        if(err){
+            console.log(err)
+        } else
+
+    res.json(user);
+
+    });
+    
+   
+  
+   
+}
+
+
+
+
+module.exports = {authentication, signin,addUser,getUsers,getUserById};

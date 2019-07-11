@@ -5,9 +5,12 @@ var User = require('./user');
 const TeamSchema = new Schema({
     name: {type:String, default:''},
     maxPlayers: {type: Number,default:2} ,
-    date: { type: Date, default: Date.now },
-    users: [{ type: Schema.ObjectId, ref: 'team' }]
+   
+   
+    users: [{ type: Schema.ObjectId, ref: 'User' }]
 
-  });
-
+  },{
+    timestamps : true
+  }
+);
   module.exports = mongoose.model('Team', TeamSchema);

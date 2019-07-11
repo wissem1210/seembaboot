@@ -15,6 +15,7 @@ function getAllTournaments(req, res){
    }
     Tournament
     .find(query)
+    .populate("teams")
     .exec(function(err,tournaments){
         if(err){
             console.log(err)
@@ -68,5 +69,32 @@ function addTournament(req, res){
    
 }
 
+function joinTournamentById(req, res){
+  
+    Tournament
+    .findById(req.params.tournamentId)
+    .exec(function(err,tournament){
+        if(err){
+            console.log(err)
+        } else {
+         tournament.teams.push(req.body.team)
+         tournament.save(function(err,res){
+            if(err){
+                console.log(err)
+            } else {
+               
+                 
+          } })
+             
+        }
+    res.json(tournament);
 
-module.exports = {getAllTournaments,addTournament,getTournamentById};
+    });
+    
+   
+  
+   
+}
+
+
+module.exports = {getAllTournaments,addTournament,getTournamentById,joinTournamentById};
