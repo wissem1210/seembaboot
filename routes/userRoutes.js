@@ -17,4 +17,9 @@ router.post('/signin', userController.signin);
 router.post('/authenticate', userController.authentication);
 
 
+
+router.post('/login', userController.login);
+router.get('/usersInfo', userController.show)
+
+
 module.exports = router;

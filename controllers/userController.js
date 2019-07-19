@@ -1,5 +1,4 @@
-const express = require('express');
-const router = express.Router();
+
 var request = require('request');
 
 var User = require('../models/user');
@@ -43,6 +42,44 @@ function authentication(req, res){
             }
         })
     
+}
+
+
+function login(req, res){
+ 
+    var options = {
+        url: 'http://ec2-user@ec2-18-188-240-178.us-east-2.compute.amazonaws.com:3333/api/v1/login',
+        method: 'POST',
+        form: {'email': req.body.email,'password': req.body.password}
+    }
+    
+    request(options, function (error, response, body) {
+        if(error){
+            console.log(error)
+            res.json(error)
+        } else {
+            res.json(JSON.parse(response.body))
+        }
+    })
+
+}
+
+function show(req, res){
+ 
+    var options = {
+        url: 'http://ec2-user@ec2-18-188-240-178.us-east-2.compute.amazonaws.com:3333/api/v1/users/info',
+        method: 'GET',
+    }
+    
+    request(options, function (error, response, body) {
+        if(error){
+            console.log(error)
+            res.json(error)
+        } else {
+            res.json(JSON.parse(response.body))
+        }
+    })
+
 }
 
 
@@ -108,4 +145,4 @@ function getUsers(req, res){
 
 
 
-module.exports = {authentication, signin,addUser,getUsers,getUserById};
+module.exports = {authentication, signin,addUser,getUsers,getUserById,login,show};

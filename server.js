@@ -1,12 +1,8 @@
 const express = require('express');
-var request = require('request');
-const router = express.Router();
 
 var cors = require('cors')
 var bodyParser = require('body-parser')
 
-const mongodb = require('mongodb');
-const mongoClient= mongodb.MongoClient;
 
 var mongoose = require('mongoose');
 
@@ -22,6 +18,7 @@ const userRoutes = require('./routes/userRoutes');
 const tournamentRoutes = require('./routes/tournamentRoutes');
 const gameRoutes = require('./routes/gameRoutes');
 const teamRoutes = require('./routes/teamRoutes');
+const matchRoutes = require('./routes/matchRoutes');
 // app.use(cors())
 // var allowCrossDomain = function(req, res, next) {
 //     req.header('Access-Controll-Allow-Origin', '*');
@@ -37,7 +34,7 @@ const teamRoutes = require('./routes/teamRoutes');
 // app.use(allowCrossDomain)
 
 
-
+app.use(matchRoutes);
 app.use(userRoutes);
 app.use(tournamentRoutes);
 app.use(gameRoutes);

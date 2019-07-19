@@ -1,9 +1,4 @@
-const express = require('express');
-const router = express.Router();
-var request = require('request');
-const app  = new express();
 
-var mongoose = require('mongoose');
 
 var Tournament = require('../models/tounament');
 

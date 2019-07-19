@@ -1,14 +1,6 @@
-const express = require('express');
-const router = express.Router();
 var request = require('request');
-const app  = new express();
-
-var mongoose = require('mongoose');
 
 var Team = require('../models/team');
-
-
-
 
 
 function addTeam(req, res){
@@ -104,6 +96,29 @@ function joinTeamById(req, res){
    
 }
 
+function getAllTeams(req, res){
+    
+    console.log(req.headers)
+    var options = {
+        url: 'http://ec2-user@ec2-18-188-240-178.us-east-2.compute.amazonaws.com:3333/api/v1/teams',
+        method: 'get',
+        headers: {
+            "Authorization" : req.headers['authorization']
+            
+        }
+    }
+    
+    request(options, function (error, response, body) {
+        if(error){
+            console.log(error)
+            res.json(error)
+        } else {
+            res.json(JSON.parse(response.body))
+        }
+    })
+
+}
 
 
-module.exports = {addTeam,getTeamsPerTournament,getTeamById,joinTeamById};
+
+module.exports = {addTeam,getTeamsPerTournament,getTeamById,joinTeamById,getAllTeams};
