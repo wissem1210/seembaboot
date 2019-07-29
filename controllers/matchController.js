@@ -28,6 +28,26 @@ function getAllMatchs(req, res){
 
 }
 
+function getAllLocalMatchs(req, res){
+    
+ 
+    Match
+    .find()
+    
+    .exec(function(err,matchs){
+        if(err){
+            console.log(err)
+        } else
+
+    res.json(matchs);
+
+    });
+    
+   
+  
+   
+}
+
 
 async function createLocalMatch(idMatch,team_a,team_b){
 
@@ -92,7 +112,7 @@ async function updateMatchDetails(idMatch,score_a,score_b){
 
 
 async function getMatchById(id, auth){
-    return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
         
     
     var options = {
@@ -149,8 +169,8 @@ let  aaa = async (req, res)=>{
 
     //TODO update match till is finished
 
-    // let matchstatus = JSON.parse(match.status)
-    // console.log({matchstatus});
+     let matchstatus = JSON.parse(match.status)
+     console.log({matchstatus});
 
     // while(matchstatus != 0){
     //     setTimeout(async () => {
@@ -228,4 +248,7 @@ var matchdetails= new MatchDetails();
 }
 
 
-module.exports = {getAllMatchs, createLocalMatch,createMatchDetails,updateMatchDetails,getMatchById,aaa};
+
+
+
+module.exports = {getAllMatchs, createLocalMatch,createMatchDetails,updateMatchDetails,getMatchById,aaa,getAllLocalMatchs};
