@@ -1,109 +1,127 @@
-
-
 var Round = require('../models/round');
 var Tournament = require('../models/tounament');
 
-function setNumberofRounds(req, res){
+function setNumberofRounds(req, res) {
     var rounda = new Round();
     Tournament.findById(req.body.tournamentId)
-    .exec(function(err,tourn){
-        if(err){
-            console.log(err)
-        } else
+        .exec(function(err, tourn) {
+            if (err) {
+                console.log(err)
+            } else
 
-    //res.json(tourn);
-    console.log(tourn.maxTeams)
-    var roundNumber = Math.log(tourn.maxTeams);
-    console.log(roundNumber)
-    console.log(Math.round(roundNumber));
-    rounda.matches.lenght=Math.round(roundNumber)
-    rounda.save((err,t) => {
-        if(err)
-           res.json(err)
-        
-     res.json(t.matches.lenght)
-    });
-    });
-    
-   // var roundNumber = Math.log(t.maxTeams);
-   // console.log(roundNumber)
-    
-    
-    
-   
-  
-   
+            //res.json(tourn);
+                console.log(tourn.maxTeams)
+            var roundNumber = Math.log(tourn.maxTeams);
+            console.log(roundNumber)
+            console.log(Math.round(roundNumber));
+            rounda.matches.lenght = Math.round(roundNumber)
+            rounda.save((err, t) => {
+                if (err)
+                    res.json(err)
+
+                res.json(t.matches.lenght)
+            });
+        });
+
+    // var roundNumber = Math.log(t.maxTeams);
+    // console.log(roundNumber)
+
+
+
+
+
+
 }
 
 
-function addRound(req, res){
-   
-    var round = new Round();
-    
-    round.save((err,t) => {
-        if(err)
-            res.json(err)
-        
-        res.json(t)
-    });
+async function addRound(req, res) {
+    return new Promise((resolve, reject) => {
+        var round = new Round();
+
+        round.save((err, t) => {
+            if (err)
+                reject(err)
+
+            resolve(t)
+        });
+    })
 
 
-    
-    
-  
-   
 }
 
 
-function joinRoundById(req, res){
-  
+
+
+function joinRoundById(req, res) {
+
     Round
-    .findById(req.params.roundId)
-    .exec(function(err,round){
-        if(err){
-            console.log(err)
-        } else {
-         round.matches.push(req.body.match)
-         round.save(function(err,res){
-            if(err){
+        .findById(req.params.roundId)
+        .exec(function(err, round) {
+            if (err) {
                 console.log(err)
             } else {
-               
-                 
-          } })
-             
-        }
-    res.json(round);
+                round.matches.push(req.body.match)
+                round.save(function(err, res) {
+                    if (err) {
+                        console.log(err)
+                    } else {
 
-    });
-    
-   
-  
-   
+
+                    }
+                })
+
+            }
+            res.json(round);
+
+        });
+
+
+
+
 }
 
-function getAllRounds(req, res){
+function getAllRounds(req, res) {
     var query = {};
-    if (req.query.round){
-        query.id=req.query.id;
+    if (req.params.round) {
+        para.id = req.query.id;
     }
-     Round
-     .find(query)
-     
-     .populate("matches")
-     .exec(function(err,matches){
-         if(err){
-             console.log(err)
-         } else
- 
-     res.json(matches);
- 
-     });
-     
-    
-   
-    
- }
+    Round
+        .find(query)
+
+    .populate("matches")
+        .exec(function(err, matches) {
+            if (err) {
+                console.log(err)
+            } else
+
+                res.json(matches);
+
+        });
 
 
-module.exports = {setNumberofRounds,addRound,joinRoundById,getAllRounds };
+
+
+}
+
+function getRoundById(req, res) {
+
+    Round
+        .findById(req.params.id)
+        .exec(function(err, round) {
+            if (err) {
+                res.json(err)
+            } else
+
+                res.json(round);
+
+        });
+
+
+
+
+
+
+}
+
+
+module.exports = { setNumberofRounds, addRound, joinRoundById, getAllRounds, getRoundById }

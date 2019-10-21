@@ -3,21 +3,21 @@ const Schema = mongoose.Schema;
 
 
 const MatchSchema = new Schema({
-    idMatchTracking: {type:String, default:''},
-    
-    teamA:{ type: Schema.ObjectId, ref: 'Team' },
-    
+    idMatchTracking: { type: String, default: '' },
+
+    teamA: { type: Schema.ObjectId, ref: 'Team' },
+
     teamB: { type: Schema.ObjectId, ref: 'Team' },
 
-    scoreA:  {type: Number,default:0} ,
-    scoreB: {type: Number,default:0} ,
-
+    scoreA: { type: Number, default: 0 },
+    scoreB: { type: Number, default: 0 },
+    nextMatchId: { type: String, default: '' },
 
     //winner:{ type: Schema.ObjectId, ref: 'Team' },
     //looser:{ type: Schema.ObjectId, ref: 'Team' },
 
-  },{
-    timestamps : true
-  });
+}, {
+    timestamps: true
+});
 
-  module.exports = mongoose.model('Match', MatchSchema);
+module.exports = mongoose.model('Match', MatchSchema);
