@@ -194,7 +194,7 @@ async function getTeamByExternalId(id) {
             })
     })
 }
-let aaa = async(req, res) => {
+let matchManger = async(req, res) => {
 
     try {
         let match = await getMatchById(req.params.id, req.headers['authorization'])
@@ -314,4 +314,4 @@ async function getLocalMatchById(id) {
 
 }
 
-module.exports = { getLocalMatchById, createMatch1, getAllMatchs, createLocalMatch, createMatchDetails, updateMatchDetails, getMatchById, aaa, getAllLocalMatchs, createMatch };
+module.exports = { getLocalMatchById, createMatch1, getAllMatchs, createLocalMatch, createMatchDetails, updateMatchDetails, getMatchById, matchManger, getAllLocalMatchs, createMatch };
